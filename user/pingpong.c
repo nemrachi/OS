@@ -3,21 +3,21 @@
 #include "user/user.h"
 
 int main(int argc, char *argv[]) {
-  char recv_buff;
-  int p_pipe[2];
-  int ch_pipe[2];
-  pipe(p_pipe);
-  pipe(ch_pipe);
+    char recv_buff;
+    int pPipe[2];
+    int chPipe[2];
+    pipe(pPipe);
+    pipe(chPipe);
 
-  if (fork() == 0) {
-    read(ch_pipe[0], &recv_buff, 1);
-    printf("%d: received ping\n", getpid());
-    write(p_pipe[1], "a", 1);
-  } else {
-    write(ch_pipe[1], "a", 1);
-    read(p_pipe[0], &recv_buff, 1);
-    printf("%d: received pong\n", getpid());
-  }
+    if (fork() == 0) {
+        read(chPipe[0], &recv_buff, 1);
+        printf("%d: received ping\n", getpid());
+        write(pPipe[1], "a", 1);
+    } else {
+        write(chPipe[1], "a", 1);
+        read(pPipe[0], &recv_buff, 1);
+        printf("%d: received pong\n", getpid());
+    }
 
-  exit(0);
+    exit(0);
 }
