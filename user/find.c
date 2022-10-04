@@ -44,7 +44,7 @@ void find(char *path, char *file) {
         return;
     }
 
-    if(strlen(path) + 1 + DIRSIZ + 1 > sizeof buf){
+    if (strlen(path) + 1 + DIRSIZ + 1 > sizeof buf) {
         fprintf(2,"find: path too long\n");
         close(fd);
         exit(1);
@@ -54,7 +54,7 @@ void find(char *path, char *file) {
     p = buf+strlen(buf);
     *p++ = '/';
 
-    while(read(fd, &de, sizeof(de)) == sizeof(de)){
+    while (read(fd, &de, sizeof(de))) {
         if(de.inum == 0)
             continue;
             
@@ -66,7 +66,7 @@ void find(char *path, char *file) {
             continue;
         }
         
-        if (!strcmp(de.name, ".") || !strcmp(de.name, "..")){
+        if (!strcmp(de.name, ".") || !strcmp(de.name, "..")) {
             continue;
         }
 
@@ -76,7 +76,7 @@ void find(char *path, char *file) {
     close(fd);
 }
 
-char* fmtname(char *path) { // from ls.c
+char* fmtname(char *path) { // from ls.c simplified
   char *p;
 
   // Find first character after last slash.
