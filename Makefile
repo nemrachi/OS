@@ -314,6 +314,12 @@ qemu-gdb: $K/kernel .gdbinit fs.img
 	@echo "*** Now run 'gdb' in another window." 1>&2
 	$(QEMU) $(QEMUOPTS) -S $(QEMUGDB)
 
+# run xv6 in qemu without a display (serial only) in debug mode
+qemu-nox-gdb: fs.img xv6.img .gdbinit
+	@echo "Now run 'gdb' from another terminal." 1>&2
+	@echo Ctrl+a h for help
+	$(QEMU) -nographic $(QEMUOPTS) -S $(QEMUGDB)
+
 ifeq ($(LAB),net)
 # try to generate a unique port for the echo server
 SERVERPORT = $(shell expr `id -u` % 5000 + 25099)
