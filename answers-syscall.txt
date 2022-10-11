@@ -1,0 +1,6 @@
+userTrap()
+7, SYS_exec
+user mode
+lw, 0000290
+dereferencia na nullptr, adresa 0 nie je pamovana v priestore jadra, ano (excep.code: d = reserved)
+?
