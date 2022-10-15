@@ -1,0 +1,2 @@
+uptime, staticky return = pocet tickov (nie fork, lebo vytvara sa tam v nom novy proces, cize nie staticke)
+?

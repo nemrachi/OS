@@ -36,6 +36,8 @@ kvmmake(void)
   // map kernel text executable and read-only.
   kvmmap(kpgtbl, KERNBASE, KERNBASE, (uint64)etext-KERNBASE, PTE_R | PTE_X);
 
+  vmprint(kpgtbl);
+  
   // map kernel data and the physical RAM we'll make use of.
   kvmmap(kpgtbl, (uint64)etext, (uint64)etext, PHYSTOP-(uint64)etext, PTE_R | PTE_W);
 
@@ -436,4 +438,37 @@ copyinstr(pagetable_t pagetable, char *dst, uint64 srcva, uint64 max)
   } else {
     return -1;
   }
+}
+
+void
+vmprint(pagetable_t pagetable)
+{	
+	printf("page table %p\n", pagetable);
+  recurse_pgtbl(pagetable, 0);
+}
+
+void
+recurse_pgtbl(pagetable_t pagetable, int level)
+{
+  // there are 2^9 = 512 PTEs in a page table.
+  for(int i = 0; i < 512; i++) {
+    pte_t pte = pagetable[i];
+
+    if(pte & PTE_V) {
+      for(int j = 0; j <= level; j++) {
+        if (j == 0) {
+          printf("..");
+        } else {
+          printf(" ..");
+        }
+      }
+      // this PTE points to a lower-level page table.
+      uint64 child = PTE2PA(pte);
+      printf("%d: pte %p pa %p\n", i, pte, child);
+
+      if((pte & (PTE_R|PTE_W|PTE_X)) == 0) {
+        recurse_pgtbl((pagetable_t)child, level+1);
+      }
+    }     
+  } 
 }
