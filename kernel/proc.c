@@ -150,6 +150,7 @@ found:
   p->alarm_interval = 0;
   p->alarm_handler = -1; // 0 is valid address
   p->ticks_elapsed = 0;
+  p->enable_handler = 0;
 
   return p;
 }
@@ -177,6 +178,7 @@ freeproc(struct proc *p)
   p->alarm_interval = 0;
   p->alarm_handler = -1; // 0 is valid address
   p->ticks_elapsed = 0;
+  p->enable_handler = 0;
 }
 
 // Create a user page table for a given process, with no user memory,

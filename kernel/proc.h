@@ -107,5 +107,6 @@ struct proc {
   int alarm_interval;          // alarm ticks
   uint64 alarm_handler;        // alarm handler
   int ticks_elapsed;           // number of ticks
-  struct trapframe alarm_tp;  // backup of p->trapframe
+  struct trapframe alarm_tf;   // backup the trapframe (register)
+  int enable_handler;          // prevents recalls
 };

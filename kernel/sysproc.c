@@ -69,7 +69,7 @@ sys_sleep(void)
   release(&tickslock);
 
   backtrace();
-  
+
   return 0;
 }
 
@@ -107,6 +107,7 @@ sys_sigalarm(void)
 
   p->alarm_interval = ticks;
   p->alarm_handler = handler;
+  p->enable_handler = 1;
 
   return 0;
 }
@@ -115,8 +116,7 @@ uint64
 sys_sigreturn(void)
 {
   struct proc *p = myproc();
-  memmove(p->trapframe, &(p->alarm_tp), sizeof(struct trapframe));
-  p->ticks_elapsed = 0;
-
+  p->enable_handler = 1;
+  memmove(p->trapframe, &(p->alarm_tf), sizeof(struct trapframe));
   return p->trapframe->a0;
 }
