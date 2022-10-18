@@ -139,7 +139,6 @@ printfinit(void)
 void backtrace(void) {
   uint64 fp = r_fp();
 
-  printf("backtrace:\n");
   while (PGROUNDDOWN(fp) < PGROUNDUP(fp)) {
     printf("%p\n", *(uint64*)(fp-8)); // types are important
     fp = *(uint64*)(fp-16);

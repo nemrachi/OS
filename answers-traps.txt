@@ -1,6 +1,6 @@
-a2
-ziadne volanie f() nie je, g()?
+a0 = prve argumenty "%d %d\n"; a1 = 12 (vypocitanu f(8)+1; a2 = 13
+ziadne volanie f() neexistuje
 0x630
-?
-?
-nedefinovane spravanie printf
+0x38
+HE110 World; i=0x726c6400 a 57616 sa nezmeni
+hodnota z a2 (format v printf bude hladat dalsi argument v registroch, ktore su ulozene v stacku)
