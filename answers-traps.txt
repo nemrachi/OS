@@ -1,0 +1,6 @@
+a2
+ziadne volanie f() nie je, g()?
+0x630
+?
+?
+nedefinovane spravanie printf
