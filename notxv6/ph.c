@@ -16,7 +16,7 @@ struct entry {
 struct entry *table[NBUCKET];
 int keys[NKEYS];
 int nthread = 1;
-
+pthread_mutex_t lock;
 
 double
 now()
@@ -29,17 +29,21 @@ now()
 static void 
 insert(int key, int value, struct entry **p, struct entry *n)
 {
+  //pthread_mutex_lock(&lock);
   struct entry *e = malloc(sizeof(struct entry));
   e->key = key;
   e->value = value;
   e->next = n;
   *p = e;
+  //pthread_mutex_unlock(&lock);
 }
 
 static 
 void put(int key, int value)
 {
   int i = key % NBUCKET;
+
+  pthread_mutex_lock(&lock);
 
   // is the key already present?
   struct entry *e = 0;
@@ -55,6 +59,7 @@ void put(int key, int value)
     insert(key, value, &table[i], table[i]);
   }
 
+  pthread_mutex_unlock(&lock);
 }
 
 static struct entry*
@@ -110,6 +115,7 @@ main(int argc, char *argv[])
     fprintf(stderr, "Usage: %s nthreads\n", argv[0]);
     exit(-1);
   }
+  pthread_mutex_init(&lock, NULL);
   nthread = atoi(argv[1]);
   tha = malloc(sizeof(pthread_t) * nthread);
   srandom(0);
