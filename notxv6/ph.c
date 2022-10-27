@@ -29,13 +29,11 @@ now()
 static void 
 insert(int key, int value, struct entry **p, struct entry *n)
 {
-  //pthread_mutex_lock(&lock);
   struct entry *e = malloc(sizeof(struct entry));
   e->key = key;
   e->value = value;
   e->next = n;
   *p = e;
-  //pthread_mutex_unlock(&lock);
 }
 
 static 
