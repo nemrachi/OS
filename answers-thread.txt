@@ -1,0 +1,6 @@
+Prečo v tabuľke chýbali kľúče, keď sme použili dve vlákna, 
+ale všetko bolo v poriadku pri jednom vlákne? Nájdite postupnosť 
+udalostí v dvoch vláknach, ktoré spôsobia takýto problém
+    - pri striedani vlakien sa stane v else blocku vo funkcii
+      put(), ze si navzajom prepisuju vstupy, co sposobi
+      stratu klucov -> preto mame zamky
