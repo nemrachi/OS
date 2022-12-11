@@ -168,18 +168,7 @@ brelse(struct buf *b)
 
   int hash = HASH(b->blockno);
   acquire(&bcache.lock[hash]);
-  b->refcnt--;
-  if (b->refcnt == 0) {
-    // no one is waiting for it.
-    // todo: add LRU support with ticks
-    // b->next->prev = b->prev;
-    // b->prev->next = b->next;
-    // b->next = bcache.head.next;
-    // b->prev = &bcache.head;
-    // bcache.head.next->prev = b;
-    // bcache.head.next = b;
-  }
-  
+  b->refcnt--;  
   release(&bcache.lock[hash]);
 }
 
